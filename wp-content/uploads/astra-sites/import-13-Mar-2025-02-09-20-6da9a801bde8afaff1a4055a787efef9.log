@@ -1,0 +1,35 @@
+
+Flow ID 9
+Flow ID 10
+Flow ID 11
+Inserted WP Form 12
+Inserted WP Form 14
+There was an error on website: Uncaught Error
+Error: Class "WC_Notes_Refund_Returns" not found in E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Internal\Admin\Events.php:132
+Stack trace:
+#0 E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Internal\Admin\FeaturePlugin.php(149): Automattic\WooCommerce\Internal\Admin\Events->init()
+#1 E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Internal\Admin\FeaturePlugin.php(98): Automattic\WooCommerce\Internal\Admin\FeaturePlugin->includes()
+#2 E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Internal\Admin\FeaturePlugin.php(81): Automattic\WooCommerce\Internal\Admin\FeaturePlugin->on_plugins_loaded()
+#3 E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Admin\Composer\Package.php(65): Automattic\WooCommerce\Internal\Admin\FeaturePlugin->init()
+#4 [internal function]: Automattic\WooCommerce\Admin\Composer\Package::init()
+#5 E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Packages.php(287): call_user_func(Array)
+#6 E:\desarrollos-wp\prixz\wp-content\plugins\woocommerce\src\Packages.php(85): Automattic\WooCommerce\Packages::initialize_packages()
+#7 E:\desarrollos-wp\prixz\wp-includes\class-wp-hook.php(324): Automattic\WooCommerce\Packages::on_init('')
+#8 E:\desarrollos-wp\prixz\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters(NULL, Array)
+#9 E:\desarrollos-wp\prixz\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#10 E:\desarrollos-wp\prixz\wp-settings.php(559): do_action('plugins_loaded')
+#11 E:\desarrollos-wp\prixz\wp-config.php(102): require_once('E:\\desarrollos-...')
+#12 E:\desarrollos-wp\prixz\wp-load.php(50): require_once('E:\\desarrollos-...')
+#13 E:\desarrollos-wp\prixz\wp-admin\admin-ajax.php(22): require_once('E:\\desarrollos-...')
+#14 {main}
+There was an error on website: Uncaught Error
+Error: Class "CPSW\Inc\Notice" not found in E:\desarrollos-wp\prixz\wp-content\plugins\checkout-plugins-stripe-woo\autoloader.php:176
+Stack trace:
+#0 E:\desarrollos-wp\prixz\wp-includes\class-wp-hook.php(324): CPSW\CPSW_Loader->load_classes('')
+#1 E:\desarrollos-wp\prixz\wp-includes\class-wp-hook.php(348): WP_Hook->apply_filters(NULL, Array)
+#2 E:\desarrollos-wp\prixz\wp-includes\plugin.php(517): WP_Hook->do_action(Array)
+#3 E:\desarrollos-wp\prixz\wp-settings.php(559): do_action('plugins_loaded')
+#4 E:\desarrollos-wp\prixz\wp-config.php(102): require_once('E:\\desarrollos-...')
+#5 E:\desarrollos-wp\prixz\wp-load.php(50): require_once('E:\\desarrollos-...')
+#6 E:\desarrollos-wp\prixz\wp-admin\admin-ajax.php(22): require_once('E:\\desarrollos-...')
+#7 {main}
