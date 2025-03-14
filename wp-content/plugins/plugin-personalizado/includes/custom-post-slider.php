@@ -42,7 +42,7 @@ function slider_post_type() {
 		'label'                 => __( 'slider', 'adr_plugin' ),
 		'description'           => __( 'Post type para sliders', 'adr_plugin' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'thumbnail' ),
+		'supports'              => array( 'title' ),
 		'hierarchical'          => false,
 		'public'                => true,
 		'show_ui'               => true,
