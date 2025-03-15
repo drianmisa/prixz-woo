@@ -61,66 +61,112 @@ function yourprefix_hide_if_no_cats( $field ) {
  * SECCION DE SLIDER
 *********************************************************************************/
 
-
 add_action('cmb2_admin_init', 'box_slider');
+
 /**
- * Hook in and add a metabox to demonstrate repeatable grouped fields
+ * Agrega un metabox para sliders con campos repetibles
  */
-function box_slider(){
+function box_slider() {
+    
+    // Crear el metabox para el slider
+    $slider_group = new_cmb2_box(array(
+        'id'           => 'slider_group_metabox',
+        'title'        => esc_html__('Sliders', 'cmb2'),
+        'object_types' => array('slider'),
+        'show_on'      => array(
+            'key'   => 'post_type',
+            'value' => 'slider',
+        ),
+    ));
 
-	/**
-	 * Repeatable Field Groups
-	 */
-	$slider_group = new_cmb2_box(array(
-		'id'           => 'slider_group_metabox',
-		'title'        => esc_html__('Sliders', 'cmb2'),
-		'object_types' => array('slider'),
-		'show_on'      => array(
-			'key' => 'post_type',
-			'value' => 'slider',  
-		),
-	));
+    // Crear el grupo de sliders
+    $slider_campo_id = $slider_group->add_field(array(
+        'id'      => 'slider_group',
+        'type'    => 'group',
+        'options' => array(
+            'group_title'    => esc_html__('Slider {#}', 'cmb2'),
+            'add_button'     => esc_html__('Agregar otro slider', 'cmb2'),
+            'remove_button'  => esc_html__('Remover slider', 'cmb2'),
+            'sortable'       => true,
+        ),
+    ));
 
+    // Campo: Título del Slider
+    $slider_group->add_group_field($slider_campo_id, array(
+        'name' => esc_html__('Título Slider', 'cmb2'),
+        'id'   => 'title_slider',
+        'type' => 'text',
+    ));
 
-	$slider_campo_id = $slider_group->add_field( array(
-		'id'          => 'slider_group',
-		'type'        => 'group',
-		'options'     => array(
-			'group_title'    => esc_html__( 'Slider {#}', 'cmb2' ),
-			'add_button'     => esc_html__( 'Agregar otro slider', 'cmb2' ),
-			'remove_button'  => esc_html__( 'Remover slider', 'cmb2' ),
-			'sortable'       => true,
-		),
-	) );
+    // Campo: Descuento (Número entre 0 y 100)
+    $slider_group->add_group_field($slider_campo_id, array(
+        'name'        => esc_html__('Descuento', 'cmb2'),
+        'description' => esc_html__('Escribe el porcentaje de descuento', 'cmb2'),
+        'id'          => 'description_slider',
+        'type'        => 'text_small',
+        'attributes'  => array(
+            'type'  => 'number',
+            'min'   => '0',
+            'max'   => '100',
+            'step'  => '1',
+        ),
+    ));
 
-	$slider_group->add_group_field( $slider_campo_id, array(
-		'name'       => esc_html__( 'Titulo Slider', 'cmb2' ),
-		'id'         => 'title_slider',
-		'type'       => 'text',
-	) );
+    // Campo: Imagen de fondo del Slider
+    $slider_group->add_group_field($slider_campo_id, array(
+        'name' => esc_html__('Background Slider', 'cmb2'),
+        'id'   => 'image_slider',
+        'type' => 'file',
+        'text' => array(
+            'add_upload_file_text' => esc_html__('Agregar Imagen', 'cmb2'),
+        ),
+        'query_args'    => array(
+            'type' => 'image',
+        ),
+        'preview_size'  => array(100, 100),
+    ));
 
-	$slider_group->add_group_field( $slider_campo_id, array(
-		'name'        => esc_html__( 'Descripcion', 'cmb2' ),
-		'description' => esc_html__( 'Escribe la descripcion del slider', 'cmb2' ),
-		'id'          => 'description_slider',
-		'type'        => 'textarea_small',
-	) );
+    // Campo: Imagen del producto en el Slider
+    $slider_group->add_group_field($slider_campo_id, array(
+        'name' => esc_html__('Imagen Producto', 'cmb2'),
+        'id'   => 'image_slider_producto',
+        'type' => 'file',
+        'text' => array(
+            'add_upload_file_text' => esc_html__('Agregar Imagen Producto', 'cmb2'),
+        ),
+        'query_args'    => array(
+            'type' => 'image',
+        ),
+        'preview_size'  => array(100, 100),
+    ));
 
-	$slider_group->add_group_field( $slider_campo_id, array(
-		'name' => esc_html__( 'Entry Image', 'cmb2' ),
-		'id'   => 'image',
-		'type' => 'file',
-	) );
+    // Campo: URL del botón en el Slider
+    $slider_group->add_group_field($slider_campo_id, array(
+        'name' => esc_html__('Texto boton', 'cmb2'),
+        'id'   => 'button_slider',
+        'type' => 'text',
+    ));
 
-	$slider_group->add_group_field( $slider_campo_id, array(
-		'name' => esc_html__( 'Image Caption', 'cmb2' ),
-		'id'   => 'buton_slider',
-		'type' => 'text',
-	) );
-	$slider_group->add_group_field( $slider_campo_id, array(
-		'name' => esc_html__( 'Url del boton slider', 'cmb2' ),
-		'id'   => 'url_btn_slider',
-		'type' => 'text_url',
-	) );
-	
+    // Obtener categorías de productos en WooCommerce
+    $categories = get_terms(array(
+        'taxonomy'   => 'product_cat',
+        'hide_empty' => false,
+    ));
+
+    $options = array();
+
+    if (!empty($categories) && !is_wp_error($categories)) {
+        foreach ($categories as $category) {
+            $options[$category->term_id] = $category->name;
+        }
+    }
+
+    // Campo: Selección de categoría de producto
+    $slider_group->add_group_field($slider_campo_id, array(
+        'name'        => esc_html__('Categoría de Producto', 'cmb2'),
+        'description' => esc_html__('Selecciona una categoría de productos de WooCommerce', 'cmb2'),
+        'id'          => 'product_category',
+        'type'        => 'select',
+        'options'     => $options,
+    ));
 }
