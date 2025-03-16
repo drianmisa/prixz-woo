@@ -136,3 +136,93 @@ swiper-slide img {
     object-fit: contain;
 
 }
+
+
+
+.swiper-slide {
+    position: relative; /* Mantener la posición relativa para control del hover */
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .swiper-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .titulo-producto {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .precio-producto {
+    font-size: 14px;
+    color: #007cba;
+    margin-bottom: 15px;
+  }
+  
+  .btn-agregar {
+      padding: 10px 15px;
+      background-color: #007cba;
+      color: white;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      opacity: 0;
+      transition: background-color 0.3s, bopacity 0.3s;
+      margin-top: 10px;
+  }
+  
+  .producto-item{
+    flex-direction: column;
+
+  
+  }
+  
+  .producto-item:hover .btn-agregar {
+    opacity: 1;
+    background-color: #005b8d;
+    color: #fff;
+  }
+  
+  .img-carrusel {
+    height: 300px !important;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  
+  .etiqueta-oferta-prod{
+    position: absolute;
+      top: 120px;
+      right: 50px;
+      background-color: red;
+      padding: 10px;
+      color: #fff;
+      border-radius: 50%;
+      height: 50px;
+      width: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+  }
+
+
+  swiper-container.myCarrusel.swiper-container-carrucel {
+    height: 300px !important;
+}

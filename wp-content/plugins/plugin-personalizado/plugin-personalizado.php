@@ -16,13 +16,14 @@ function styles_plugin(){
 }
 add_action('wp_enqueue_scripts', 'styles_plugin');
 
+require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/custom-boxes.php';
 require_once plugin_dir_path(__FILE__) . 'includes/cmb2.php';
 require_once plugin_dir_path(__FILE__) . 'includes/custom-post-slider.php';
-require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
+require_once plugin_dir_path(__FILE__) . 'includes/custom-post-productos-ofertas.php';
 
 
-function my_plugin_force_single_slider_template($template){
+function templates_plugin($template) {
     if (is_singular('slider')) {
         $plugin_path = plugin_dir_path(__FILE__) . 'templates/single-slider.php';
 
@@ -32,6 +33,21 @@ function my_plugin_force_single_slider_template($template){
             echo 'No se encontró la plantilla en: ' . $plugin_path;
         }
     }
+
+    if (is_singular('adr_carrusel')) {
+        $plugin_path = plugin_dir_path(__FILE__) . 'templates/single-carrucel.php';
+
+        if (file_exists($plugin_path)) {
+            return $plugin_path;
+        } else {
+            echo 'No se encontró la plantilla en: ' . $plugin_path;
+        }
+    }
+
     return $template;
 }
-add_filter('template_include', 'my_plugin_force_single_slider_template');
+add_filter('template_include', 'templates_plugin');
+
+
+
+

@@ -17,10 +17,10 @@
  * Get the bootstrap! If using the plugin from wordpress.org, REMOVE THIS!
  */
 
- if ( file_exists( dirname( __FILE__ ) . '/cmb2/init.php' ) ) {
-	require_once dirname( __FILE__ ) . '/cmb2/init.php';
-} elseif ( file_exists( dirname( __FILE__ ) . '/CMB2/init.php' ) ) {
-	require_once dirname( __FILE__ ) . '/CMB2/init.php';
+if (file_exists(dirname(__FILE__) . '/cmb2/init.php')) {
+    require_once dirname(__FILE__) . '/cmb2/init.php';
+} elseif (file_exists(dirname(__FILE__) . '/CMB2/init.php')) {
+    require_once dirname(__FILE__) . '/CMB2/init.php';
 }
 
 /**
@@ -30,12 +30,13 @@
  *
  * @return bool      True if metabox should show
  */
-function yourprefix_show_if_front_page( $cmb ) {
-	// Don't show this metabox if it's not the front page template.
-	if ( get_option( 'page_on_front' ) !== $cmb->object_id ) {
-		return false;
-	}
-	return true;
+function yourprefix_show_if_front_page($cmb)
+{
+    // Don't show this metabox if it's not the front page template.
+    if (get_option('page_on_front') !== $cmb->object_id) {
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -45,12 +46,13 @@ function yourprefix_show_if_front_page( $cmb ) {
  *
  * @return bool              True if metabox should show
  */
-function yourprefix_hide_if_no_cats( $field ) {
-	// Don't show this field if not in the cats category.
-	if ( ! has_tag( 'cats', $field->object_id ) ) {
-		return false;
-	}
-	return true;
+function yourprefix_hide_if_no_cats($field)
+{
+    // Don't show this field if not in the cats category.
+    if (! has_tag('cats', $field->object_id)) {
+        return false;
+    }
+    return true;
 }
 
 
@@ -59,15 +61,16 @@ function yourprefix_hide_if_no_cats( $field ) {
 
 /*********************************************************************************
  * SECCION DE SLIDER
-*********************************************************************************/
+ *********************************************************************************/
 
 add_action('cmb2_admin_init', 'box_slider');
 
 /**
  * Agrega un metabox para sliders con campos repetibles
  */
-function box_slider() {
-    
+function box_slider()
+{
+
     // Crear el metabox para el slider
     $slider_group = new_cmb2_box(array(
         'id'           => 'slider_group_metabox',
@@ -169,4 +172,69 @@ function box_slider() {
         'type'        => 'select',
         'options'     => $options,
     ));
+}
+
+
+
+/*********************************************************************************
+ * CARRUSEL PRODUCTOS
+ *********************************************************************************/
+
+
+add_action('cmb2_admin_init', 'box_productos');
+function box_productos()
+{
+    // Crear el metabox para el carrusel
+    $carrusel_group = new_cmb2_box(array(
+        'id'           => 'carrusel_group_metabox',
+        'title'        => esc_html__('Carruseles', 'cmb2'),
+        'object_types' => array('adr_carrusel'),  
+        'show_on'      => array(
+            'key'   => 'post_type',
+            'value' => 'adr_carrusel',  
+        ),
+    ));
+
+    $productos_en_oferta = get_posts(array(
+        'post_type'      => 'product',
+        'posts_per_page' => -1, 
+        'meta_key'       => '_sale_price', 
+        'meta_value'     => '',  
+        'meta_compare'   => '>', 
+    ));
+
+    $productos_opciones = array();
+
+    foreach ($productos_en_oferta as $producto) {
+        $productos_opciones[$producto->ID] = $producto->post_title; 
+    }
+
+    $carrusel_group->add_field(array(
+        'name'    => esc_html__('Selecciona productos en oferta', 'cmb2'),
+        'desc'    => esc_html__('Selecciona productos que están en oferta. Máximo 9 productos.', 'cmb2'),
+        'id'      => 'productos_oferta', 
+        'type'    => 'multicheck',  
+        'options' => $productos_opciones, 
+        'column'  => true,
+    ));
+
+    add_action('admin_footer', 'limitar_seleccion_productos');
+}
+add_action('cmb2_admin_init', 'box_productos');
+
+function limitar_seleccion_productos(){
+?>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            var maxSeleccion = 6; 
+            $('input[name="productos_oferta[]"]').on('change', function() {
+                var checked = $('input[name="productos_oferta[]"]:checked').length;
+                if (checked > maxSeleccion) {
+                    alert('Solo puedes seleccionar un máximo de ' + maxSeleccion + ' productos.');
+                    $(this).prop('checked', false); 
+                }
+            });
+        });
+    </script>
+<?php
 }
