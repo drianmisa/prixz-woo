@@ -33,4 +33,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 	wp_footer();
 ?>
 	</body>
+
 </html>

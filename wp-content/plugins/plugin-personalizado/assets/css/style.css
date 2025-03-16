@@ -27,7 +27,8 @@ swiper-slide {
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 400px;
-    padding: 30px 0;
+    padding-bottom: 0;
+    padding-top: 50px;
 
 }
 
@@ -72,6 +73,7 @@ swiper-slide img {
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex-direction: column-reverse;
 }
 
 @media (min-width: 768px) {
@@ -140,7 +142,7 @@ swiper-slide img {
 
 
 .swiper-slide {
-    position: relative; /* Mantener la posición relativa para control del hover */
+    position: relative;
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -151,78 +153,103 @@ swiper-slide img {
     padding: 15px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .swiper-slide img {
+}
+
+.swiper-slide img {
     width: 100%;
     height: auto;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
-  }
-  
-  .titulo-producto {
+}
+
+.titulo-producto {
     font-size: 16px;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
-  }
-  
-  .precio-producto {
+}
+
+.precio-producto {
     font-size: 14px;
     color: #007cba;
     margin-bottom: 15px;
-  }
-  
-  .btn-agregar {
-      padding: 10px 15px;
-      background-color: #007cba;
-      color: white;
-      font-size: 14px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      opacity: 0;
-      transition: background-color 0.3s, bopacity 0.3s;
-      margin-top: 10px;
-  }
-  
-  .producto-item{
+}
+
+.btn-agregar {
+    padding: 10px 15px;
+    background-color: #007cba;
+    color: white;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: background-color 0.3s, bopacity 0.3s;
+    margin-top: 10px;
+}
+
+.producto-item {
     flex-direction: column;
 
-  
-  }
-  
-  .producto-item:hover .btn-agregar {
+
+}
+
+.producto-item:hover .btn-agregar {
     opacity: 1;
     background-color: #005b8d;
     color: #fff;
-  }
-  
-  .img-carrusel {
+}
+
+.img-carrusel {
     height: 300px !important;
     width: 100%;
     object-fit: contain;
-  }
-  
-  
-  .etiqueta-oferta-prod{
+}
+
+
+.etiqueta-oferta-prod {
     position: absolute;
-      top: 120px;
-      right: 50px;
-      background-color: red;
-      padding: 10px;
-      color: #fff;
-      border-radius: 50%;
-      height: 50px;
-      width: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-  }
+    top: 120px;
+    right: 50px;
+    background-color: red;
+    padding: 10px;
+    color: #fff;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
 
 
-  swiper-container.myCarrusel.swiper-container-carrucel {
+swiper-container.myCarrusel.swiper-container-carrucel {
     height: 300px !important;
+}
+
+form#loginform {
+    display: flex;
+    flex-direction: column;
+    background: #8080803d;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+input#user_pass,
+input#user_login {
+    width: 100%;
+}
+
+
+button.button.button-secondary.wp-hide-pw.hide-if-no-js {
+    display: none;
+}
+
+input#wp-submit {
+    width: 100%;
+    margin-bottom: 0;
+    color: #fff;
 }

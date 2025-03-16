@@ -16,6 +16,14 @@ function styles_plugin(){
 }
 add_action('wp_enqueue_scripts', 'styles_plugin');
 
+function scripts_plugin() {
+    wp_enqueue_script('app-js', plugin_dir_url(__FILE__) . 'assets/js/script.js', array(), null, true);
+}
+
+add_action('wp_enqueue_scripts', 'scripts_plugin');
+
+
+
 require_once plugin_dir_path(__FILE__) . 'includes/functions.php';
 require_once plugin_dir_path(__FILE__) . 'includes/custom-boxes.php';
 require_once plugin_dir_path(__FILE__) . 'includes/cmb2.php';
